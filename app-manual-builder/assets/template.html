@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{APP_NAME}} — Manual</title>
+<style>
+  :root {
+    --accent: #5B5BF5;
+    --accent-light: #EEF0FF;
+    --text: #1A1B25;
+    --text-muted: #6B6F80;
+    --border: #E4E6EE;
+    --bg-sidebar: #FAFAFC;
+    --bg-page: #FFFFFF;
+    --code-bg: #F3F3F8;
+    --success: #1E9E6B;
+    --warn: #B7791F;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg-page);
+    line-height: 1.6;
+  }
+  .layout { display: flex; min-height: 100vh; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+    padding: 28px 20px;
+  }
+  .sidebar .brand {
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sidebar .brand-tag {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .sidebar nav a {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 6px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  .sidebar nav a:hover { background: var(--accent-light); }
+  .sidebar nav a.active { background: var(--accent-light); color: var(--accent); font-weight: 600; }
+  .sidebar .version-switch {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .sidebar .version-switch a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+  /* Content */
+  .content { flex: 1; padding: 48px 64px; max-width: 880px; }
+  .eyebrow {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  h1 { font-size: 32px; margin: 0 0 8px; }
+  .intro { font-size: 16px; color: var(--text-muted); margin-bottom: 40px; max-width: 640px; }
+
+  section.step-group { margin-bottom: 56px; }
+  section.step-group > h2 {
+    font-size: 22px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+
+  .step { display: flex; gap: 18px; margin-bottom: 28px; }
+  .step-number {
+    flex-shrink: 0;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+  }
+  .step-body { flex: 1; }
+  .step-body p { margin: 0 0 12px; }
+  .step-body .screenshot {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--code-bg);
+    margin-top: 8px;
+  }
+  .step-body .screenshot img { display: block; width: 100%; height: auto; }
+  .step-body .screenshot-placeholder {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 32px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  kbd, .ui-label {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 1px 7px;
+    font-size: 13px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-light);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    margin: 16px 0;
+  }
+  .callout.warn { border-color: var(--warn); background: #FFF6E8; }
+
+  .feature-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .feature-card h3 { margin: 0 0 6px; font-size: 17px; }
+  .feature-card .feature-desc { color: var(--text-muted); margin-bottom: 14px; font-size: 14px; }
+
+  .faq-item { margin-bottom: 20px; }
+  .faq-item .q { font-weight: 600; margin-bottom: 6px; }
+  .faq-item .a { color: var(--text-muted); }
+
+  .data-source-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .data-source-table th, .data-source-table td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-source-table th { color: var(--text-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+
+  .admin-badge {
+    display: inline-block;
+    background: #1A1B25;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 20px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  @media print {
+    .sidebar { display: none; }
+    .content { max-width: 100%; padding: 20px 30px; }
+    .step { break-inside: avoid; }
+    section.step-group { break-inside: avoid-page; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">✨ {{APP_NAME}}</div>
+    <div class="brand-tag">{{VERSION_LABEL}}</div>
+    <nav>
+      <a href="#inicio" class="active">Qué es {{APP_NAME}}</a>
+      <a href="#login">🔑 Iniciar sesión y miembros</a>
+      <a href="#config">⚙️ Configurar tu cuenta</a>
+      <a href="#funciones">🧭 Qué puedes hacer</a>
+      <!-- Si es la versión admin, agregar: <a href="#fuentes">🔌 De dónde vienen los datos</a> -->
+      <a href="#faq">❓ Preguntas frecuentes</a>
+    </nav>
+    <!-- Si se generan ambas versiones, enlazar entre ellas: -->
+    <div class="version-switch">Estás viendo: {{VERSION_LABEL}}<br><a href="{{OTHER_VERSION_FILE}}">Ver versión {{OTHER_VERSION_LABEL}} →</a></div>
+  </aside>
+
+  <main class="content">
+    <section id="inicio">
+      <span class="eyebrow">Manual {{VERSION_LABEL}}</span>
+      <h1>✨ {{APP_NAME}}</h1>
+      <p class="intro">{{APP_DESCRIPTION_2_3_LINEAS}}</p>
+    </section>
+
+    <section id="login" class="step-group">
+      <h2>🔑 Cómo iniciar sesión y habilitar nuevos miembros</h2>
+      <!-- Repetir bloque .step por cada paso. Cada captura real va dentro de .screenshot como <img>.
+           Si no se pudo tomar la captura, usar screenshot-placeholder con el texto [Insertar captura aquí]. -->
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-body">
+          <p>Texto del paso en lenguaje simple...</p>
+          <div class="screenshot"><img src="data:image/png;base64,{{BASE64}}" alt="Paso 1"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="config" class="step-group">
+      <h2>⚙️ Cómo configurar tu cuenta</h2>
+    </section>
+
+    <section id="funciones" class="step-group">
+      <h2>🧭 Qué puedes hacer en la app</h2>
+      <!-- Un .feature-card por funcionalidad principal, con mini pasos dentro si aplica -->
+      <div class="feature-card">
+        <h3>Nombre de la función</h3>
+        <div class="feature-desc">Explicación breve de para qué sirve.</div>
+        <!-- pasos con .step aquí si aplica -->
+      </div>
+    </section>
+
+    <!-- SOLO EN VERSIÓN ADMIN: sección de fuentes de datos -->
+    <section id="fuentes" class="step-group">
+      <h2>🔌 De dónde vienen los datos <span class="admin-badge">Solo admin</span></h2>
+      <p>Esta app se alimenta de las siguientes fuentes. Aquí NO van contraseñas, tokens ni claves — solo a qué está conectada la app.</p>
+      <table class="data-source-table">
+        <thead><tr><th>Fuente</th><th>Qué guarda</th><th>Enlace / referencia</th></tr></thead>
+        <tbody>
+          <tr><td>Ej: Google Sheet "Clientes"</td><td>Listado de usuarios registrados</td><td><a href="#">Abrir hoja</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="faq" class="step-group">
+      <h2>❓ Preguntas frecuentes</h2>
+      <div class="faq-item">
+        <div class="q">¿Pregunta frecuente?</div>
+        <div class="a">Respuesta simple y directa.</div>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

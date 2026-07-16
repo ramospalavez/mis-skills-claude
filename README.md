@@ -12,9 +12,15 @@ para compartir con usuarios o clientes. Produce dos archivos separados
 (versión Usuario y versión Administrador), en HTML estilo codewiki y en PDF,
 con capturas de pantalla reales tomadas navegando la app.
 
+### `uruvet-error-tracking/`
+Implementa captura de errores, alertas por email, trazabilidad de requests
+(request ID) y métricas de uptime/latencia/error rate para el monorepo
+UruVet (uruvet-api en NestJS+TypeORM+Postgres, uruvet-admin/uruvet-intra/
+uruvet-web en Angular, uruvet-clientes PWA).
+
 ## Cómo instalar un skill desde aquí
 
-1. Descarga la carpeta del skill que quieras (o clona todo el repo).
-2. En Cowork/Claude Code, comparte la carpeta o el `SKILL.md` con Claude y
-   pídele que la instale, o usa la opción de instalar skill desde archivo si
-   está disponible.
+1. Descarga la carpeta del skill que quieras, o el archivo `.skill` ya
+   empaquetado que está dentro de cada carpeta.
+2. En Cowork/Claude Code, comparte el archivo `.skill` con Claude (o pídele
+   que lo lea) y usa el botón de instalar/guardar skill.
